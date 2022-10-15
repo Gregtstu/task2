@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-kassa',
@@ -7,12 +8,15 @@ import {Component, OnInit} from '@angular/core';
 })
 export class KassaComponent implements OnInit {
 
-  step = 0;
+  public step:number;
+  public formData!:FormGroup;
 
-  constructor() {
+  constructor(private fb:FormBuilder) {
+    this.step = 0;
   }
 
   ngOnInit(): void {
+
   }
 
   setStep(index: number) {
