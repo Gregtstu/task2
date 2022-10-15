@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-kassa',
@@ -7,9 +7,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KassaComponent implements OnInit {
 
-  constructor() { }
+  step = 0;
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
+
+  setStep(index: number) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
+  }
+
 
 }

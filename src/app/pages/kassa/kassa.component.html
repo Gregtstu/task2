@@ -1,1 +1,83 @@
+<section class="kassa">
+  <h2 class="kassa__title">Касса теплохода</h2>
+  <app-tablo></app-tablo>
 
+  <mat-accordion class="example-headers-align">
+    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Персональные данные
+        </mat-panel-title>
+        <mat-panel-description>
+          Ф.И.О. Возраст/льготы
+          <mat-icon>account_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <form>
+        <mat-form-field appearance="outline">
+          <mat-label>Ф.И.О</mat-label>
+          <input matInput placeholder="введите ФИО клиента">
+        </mat-form-field>
+
+        <mat-radio-group aria-label="Select an option">
+          <mat-radio-button value="1">Ребенок</mat-radio-button>
+          <mat-radio-button value="2">Взрослый</mat-radio-button>
+          <mat-radio-button value="2">Взрослый(льготный)</mat-radio-button>
+        </mat-radio-group>
+      </form>
+      <mat-action-row>
+        <button mat-button color="primary" (click)="nextStep()">Далее</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Направление движения
+        </mat-panel-title>
+        <mat-panel-description>
+          Выбор города назначения
+          <mat-icon>map</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <form>
+          <div class="btns">
+            <button mat-raised-button color="primary">Москва</button>
+            <button mat-raised-button color="primary">Тамбов</button>
+          </div>
+        <mat-checkbox class="example-margin">Пассажир покупает обратный билет</mat-checkbox>
+      </form>
+
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Назад</button>
+        <button mat-button color="primary" (click)="nextStep()">Далее</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Время поездки
+        </mat-panel-title>
+        <mat-panel-description>
+          Выбрать удобное время отправления
+          <mat-icon>date_range</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="wrapper">
+        <div class="time">01.01.2022 12-00</div>
+        <div class="time">01.01.2022 12-00</div>
+        <div class="time">01.01.2022 12-00</div>
+        <div class="time">01.01.2022 12-00</div>
+      </div>
+
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Назад</button>
+        <button mat-button color="primary" (click)="nextStep()">Расчитать поездку</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <button style="width:100%" mat-raised-button color="primary">Добавить пассажира</button>
+
+</section>
