@@ -1,2 +1,16 @@
-<p>main-layout works!</p>
+<mat-toolbar color="primary">
+  <span>Обслуживание пассажиров</span>
+  <span class="example-spacer"></span>
+
+    <ul>
+      <li [routerLink]="['/kassa']">
+        <a routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Регистрация</a>
+      </li>
+      <li [routerLink]="['/parahod']">
+        <a routerLinkActive="active">Прием на борт</a>
+      </li>
+    </ul>
+
+</mat-toolbar>
+
 <router-outlet></router-outlet>

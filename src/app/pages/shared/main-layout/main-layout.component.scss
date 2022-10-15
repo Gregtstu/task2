@@ -1,0 +1,23 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+ul {
+  width: 30%;
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+
+  a {
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  a.active {
+    color: tomato;
+  }
+  a:hover{
+    color: #af8176;
+  }
+}
+

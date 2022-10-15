@@ -8,6 +8,11 @@ import { KassaComponent } from './pages/kassa/kassa.component';
 import { ParahodComponent } from './pages/parahod/parahod.component';
 import { TabloComponent } from './pages/tablo/tablo.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatTableModule} from '@angular/material/table';
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 @NgModule({
   declarations: [
@@ -20,7 +25,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatIconModule,
+    MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
