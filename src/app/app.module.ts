@@ -22,6 +22,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatSelectModule} from "@angular/material/select";
 import {HttpClientModule} from "@angular/common/http";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 
 
@@ -51,7 +52,8 @@ import {HttpClientModule} from "@angular/common/http";
     MatRadioModule,
     MatCheckboxModule,
     MatSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

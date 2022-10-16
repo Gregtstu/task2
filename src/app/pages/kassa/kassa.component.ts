@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {LocalStorageBarcodeService} from "../../services/local-storage-barcode.service";
+import {ApiService} from "../../services/api.service";
 
 
 @Component({
@@ -11,7 +12,7 @@ import {LocalStorageBarcodeService} from "../../services/local-storage-barcode.s
 export class KassaComponent implements OnInit {
 
   public step: number;
-  public price!: number;
+  public price!: number | string;
   public barcode!: any;
   public flagBarcode: boolean;
   public formData!: FormGroup;
@@ -23,7 +24,11 @@ export class KassaComponent implements OnInit {
   public back!: boolean;
 
 
-  constructor(private fb: FormBuilder, private localStoregServ: LocalStorageBarcodeService) {
+  constructor(
+    private fb: FormBuilder,
+    private localStoregServ: LocalStorageBarcodeService,
+    private api:ApiService
+  ) {
     this.step = 0;
     this.fio = '';
     this.city = '';
@@ -39,7 +44,7 @@ export class KassaComponent implements OnInit {
       }),
       citys: this.fb.group({
         city: ['', Validators.required],
-        back: ['', Validators.required],
+        back: ['',],
       }),
       parohod: ['', Validators.required],
       time: ['', Validators.required],
@@ -51,7 +56,7 @@ export class KassaComponent implements OnInit {
     if (this.localStoregServ.getBarcode()) {
       this.barcode = this.localStoregServ.getBarcode();
     } else {
-      this.barcode = 1;
+      this.barcode = 506476;
     }
   }
 
@@ -93,16 +98,14 @@ export class KassaComponent implements OnInit {
   getNewBarcode() {
     if (this.formData.valid) {
       this.step++;
-      this.flagBarcode = true;
       this.localStoregServ.addLs(this.barcode);
+      this.flagBarcode = true;
     }else {
       alert("Заполнены не все данные клиента!");
     }
+    this.getBarcode();
   }
 
-  submit() {
-
-  }
 
   toPrint() {
     if(this.formData.valid){
@@ -110,5 +113,33 @@ export class KassaComponent implements OnInit {
     }else {
       alert("Печать билета не возможна! Заполнены не все данные клиента!");
     }
+  }
+
+  submit() {
+    if (this.formData.invalid){
+      return
+    }
+
+    const obj:any = {
+      fio: this.formData.value.person.fio,
+      back: this.formData.value.citys.back,
+      parohod:this.formData.value.parohod,
+      barcode: this.barcode,
+    }
+
+    this.api.addPost(obj)
+      .subscribe({
+        next:(res)=> {
+          this.formData.reset()
+          this.flagBarcode = false;
+          this.price = '';
+          alert("Новый пассажир успешно добавлен в базу!");
+
+        },
+        error:(err)=> {
+          alert("Возникла ошибка!!");
+        }
+      })
+
   }
 }

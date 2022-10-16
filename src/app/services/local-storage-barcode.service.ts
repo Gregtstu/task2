@@ -13,9 +13,15 @@ export class LocalStorageBarcodeService {
   }
 
 
-  addLs(barcode: number,) {
-    barcode++;
-    localStorage.setItem('counterBarcode', JSON.stringify(barcode));
+  addLs(barcode: any,) {
+    let barcodeLs = localStorage.getItem('counterBarcode');
+    if(barcode == barcodeLs){
+      barcode = +barcode + 1 ;
+      console.log('barcode')
+    }else {
+      console.log('nobarcode')
+    }
+    localStorage.setItem('counterBarcode', barcode);
   }
 
 }

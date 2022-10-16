@@ -1,0 +1,20 @@
+.parohod {
+  padding-top: 50px;
+  width: 80%;
+  margin: 0 auto;
+
+  mat-form-field{
+    width: 100%;
+  }
+
+  table {
+    width: 100%;
+
+    .mat-form-field {
+      font-size: 14px;
+      width: 100%;
+    }
+  }
+
+
+}

@@ -132,6 +132,6 @@
     </mat-expansion-panel>
   </mat-accordion>
 
-  <button style="width:100%" mat-raised-button color="primary" (click)="submit()" >Добавить пассажира</button>
+  <button *ngIf="flagBarcode" style="width:100%" mat-raised-button color="primary" (click)="submit()">Добавить пассажира</button>
   </form>
 </section>
