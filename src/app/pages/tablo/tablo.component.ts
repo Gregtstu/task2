@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {TabloService} from "../../services/tablo.service";
 
 @Component({
   selector: 'app-tablo',
@@ -14,12 +13,12 @@ export class TabloComponent implements OnInit {
   @Input() discount!: string;
   @Input() date!: string;
   @Input() back!: boolean;
+  @Input() flagBarcode!: boolean;
   @Input() price!: any;
-  public ticket: string;
+  @Input() barcode!: any;
 
 
-  constructor(private tabloServ: TabloService) {
-    this.back ? this.ticket = 'нет' : this.ticket = 'есть';
+  constructor() {
   }
 
   ngOnInit(): void {
