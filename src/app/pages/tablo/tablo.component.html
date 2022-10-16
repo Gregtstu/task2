@@ -1,10 +1,22 @@
 <div class="tablo">
-<ul>
-  <li><span> Ф.И.О: <b>Иванов Иван Иванович</b> </span></li>
-  <li><span>Город назначения: <b>Москва</b></span></li>
-  <li><span>Обратный билет: <b>нет</b></span></li>
-  <li><span>Время пути: <b>6 часов</b></span></li>
-  <li><span>Стоимость поездки: <b>1200 руб</b></span></li>
-</ul>
-  <span>Баркод: <b>000001</b></span>
+  <ul>
+    <li><span> Ф.И.О: <b>{{fio}}</b> </span></li>
+    <li><span>Город назначения: <b>{{city}}</b></span></li>
+    <li *ngIf="back; else noBack"><span>Обратный билет: <b>оплачен</b></span></li>
+    <ng-template #noBack>
+      <li><span>Обратный билет: <b>не оплачен</b></span></li>
+    </ng-template>
+    <li><span>Параход: <b>{{parahod}}</b></span></li>
+    <li *ngIf="parahod === 'Пароход 1'"><span>Время в пути: <b>7 часов</b></span></li>
+    <li *ngIf="parahod === 'Пароход 2'"><span>Время в пути: <b>6 часов</b></span></li>
+    <li *ngIf="parahod === 'Пароход 3'"><span>Время в пути: <b>5 часов</b></span></li>
+  </ul>
+  <ul>
+    <li><span>Баркод: <b>000001</b></span></li>
+    <li *ngIf="discount === '0'"><span>Скидка: <b>нет</b></span></li>
+    <li *ngIf="discount === '10'"><span>Скидка: <b>{{discount}}%(льготный)</b></span></li>
+    <li *ngIf="discount === '20'"><span>Скидка: <b>{{discount}}%(детский)</b></span></li>
+    <li><span>Отправление: <b>{{date}}</b></span></li>
+    <li><span>Стоимость поездки: <b>{{price}} руб</b></span></li>
+  </ul>
 </div>

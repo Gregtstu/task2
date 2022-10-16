@@ -1,7 +1,19 @@
 <section class="kassa">
   <h2 class="kassa__title">Касса теплохода</h2>
-  <app-tablo></app-tablo>
 
+  <app-tablo
+    [fio]="fio"
+    [city]="city"
+    [back]="back"
+    [parahod]="parahod"
+    [date]="date"
+    [price]="price"
+    [discount]="discount"
+  >
+
+  </app-tablo>
+
+  <form [formGroup]="formData" (ngSubmit)="calculation()">
   <mat-accordion class="example-headers-align">
     <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
       <mat-expansion-panel-header>
@@ -13,16 +25,16 @@
           <mat-icon>account_circle</mat-icon>
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <form>
+      <form formGroupName="person">
         <mat-form-field appearance="outline">
           <mat-label>Ф.И.О</mat-label>
-          <input matInput placeholder="введите ФИО клиента">
+          <input matInput [(ngModel)]="fio" placeholder="введите ФИО клиента" formControlName="fio">
         </mat-form-field>
 
-        <mat-radio-group aria-label="Select an option">
-          <mat-radio-button value="1">Ребенок</mat-radio-button>
-          <mat-radio-button value="2">Взрослый</mat-radio-button>
-          <mat-radio-button value="2">Взрослый(льготный)</mat-radio-button>
+        <mat-radio-group aria-label="Select an option" formControlName="age" [(ngModel)]="discount">
+          <mat-radio-button value="20">Ребенок</mat-radio-button>
+          <mat-radio-button value="0">Взрослый</mat-radio-button>
+          <mat-radio-button value="10">Взрослый(льготный)</mat-radio-button>
         </mat-radio-group>
       </form>
       <mat-action-row>
@@ -40,12 +52,12 @@
           <mat-icon>map</mat-icon>
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <form>
-          <div class="btns">
-            <button mat-raised-button color="primary">Москва</button>
-            <button mat-raised-button color="primary">Тамбов</button>
-          </div>
-        <mat-checkbox class="example-margin">Пассажир покупает обратный билет</mat-checkbox>
+      <form formGroupName="citys">
+        <mat-radio-group aria-label="Select an option" formControlName="city" [(ngModel)]="city">
+          <mat-radio-button value="Москва">Москва</mat-radio-button>
+          <mat-radio-button value="Тамбов">Тамбов</mat-radio-button>
+        </mat-radio-group>
+        <mat-checkbox class="example-margin" formControlName="back" [(ngModel)]="back">Пассажир покупает обратный билет</mat-checkbox>
       </form>
 
       <mat-action-row>
@@ -57,6 +69,27 @@
     <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
+          Имеющиеся параходы
+        </mat-panel-title>
+        <mat-panel-description>
+          Выбор комфортного парахода
+          <mat-icon>pool</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+        <mat-radio-group aria-label="Select an option" formControlName="parohod" [(ngModel)]="parahod">
+          <mat-radio-button value="Пароход 1">Пароход 1</mat-radio-button>
+          <mat-radio-button value="Пароход 2">Пароход 2</mat-radio-button>
+          <mat-radio-button value="Пароход 3">Пароход 3</mat-radio-button>
+        </mat-radio-group>
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Назад</button>
+        <button mat-button color="primary" (click)="nextStep()">Далее</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
           Время поездки
         </mat-panel-title>
         <mat-panel-description>
@@ -64,20 +97,36 @@
           <mat-icon>date_range</mat-icon>
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <div class="wrapper">
-        <div class="time">01.01.2022 12-00</div>
-        <div class="time">01.01.2022 12-00</div>
-        <div class="time">01.01.2022 12-00</div>
-        <div class="time">01.01.2022 12-00</div>
-      </div>
+      <mat-form-field appearance="outline">
+        <mat-label>Select</mat-label>
+          <mat-select *ngIf="city === 'Москва'; else Tambov" formControlName="time" [(ngModel)]="date">
+            <mat-option value="2021-08-21 18:00:00">2021-08-21 18:00:00</mat-option>
+            <mat-option value="2021-08-21 18:30:00">2021-08-21 18:30:00</mat-option>
+<!--            <mat-option value="2021-08-21 18:45:00">2021-08-21 18:45:00</mat-option>-->
+<!--            <mat-option value="2021-08-21 19:00:00">2021-08-21 19:00:00</mat-option>-->
+<!--            <mat-option value="2021-08-21 19:15:00">2021-08-21 19:15:00</mat-option>-->
+<!--            <mat-option value="2021-08-21 21:00:00">2021-08-21 21:00:00</mat-option>-->
+          </mat-select>
+          <ng-template #Tambov>
+            <mat-select formControlName="time" [(ngModel)]="date" >
+              <mat-option value="2021-08-21 18:30:00">2021-08-21 18:30:00</mat-option>
+              <mat-option value="2021-08-21 18:45:00">2021-08-21 18:45:00</mat-option>
+              <mat-option value="2021-08-21 19:00:00">2021-08-21 19:00:00</mat-option>
+              <mat-option value="2021-08-21 19:15:00">2021-08-21 19:15:00</mat-option>
+              <mat-option value="2021-08-21 19:35:00">2021-08-21 19:35:00</mat-option>
+              <mat-option value="2021-08-21 21:50:00">2021-08-21 21:50:00</mat-option>
+              <mat-option value="2021-08-21 21:55:00">2021-08-21 21:55:00</mat-option>
+            </mat-select>
+          </ng-template>
 
+      </mat-form-field>
       <mat-action-row>
         <button mat-button color="warn" (click)="prevStep()">Назад</button>
-        <button mat-button color="primary" (click)="nextStep()">Расчитать поездку</button>
+        <button mat-button color="primary" (click)="nextStep()">Получить бар код</button>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>
 
-  <button style="width:100%" mat-raised-button color="primary">Добавить пассажира</button>
-
+  <button style="width:100%" mat-raised-button color="primary" (click)="submit()" >Добавить пассажира</button>
+  </form>
 </section>
